@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PERFORMANCE-MS | Dashboard</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition white-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+        <!-- Preloader -->
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <!-- <img class="animation__shake" src="../../dist/img/logo.png" alt="AdminLTELogo" height="150" width="150"> -->
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-orange elevation-3 navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/pages/interface/index.html" class="nav-link">Home</a>
+            </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <!-- Notifications Dropdown Menu -->
+            <li class="nav-item">
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel d-flex">
+                        <div class="info">
+                            Username
+                        </div>
+                    </div>
+                </div>
+            </li>
+             <li class="nav-item">
+                <div class="sidebar">
+                    <div class="user-panel d-flex">
+                        <div class="image">
+                            <img src="../../dist/img/profile.svg" class="img-circle elevation-2" alt="User Image">
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <aside class="main-sidebar sidebar-dark-orange elevation-3">
+      <a href="#" class="brand-link elevation-3">
+          <!-- <img src="https://www.ccm.or.tz/logo/LOGO_NEW_CCM.png" alt="emblem" class="brand-image elevation-3"> -->
+          <span class="brand-text font-weight-light" style="font-size: 40px; font-weight:bolder;">PMS</span>
+      </a>
+
+      <nav class="mt-2">
+          <ul class="nav  nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./index.html" class="nav-link">
+                      <i class="fas fa-tachometer-alt"></i>
+                      <p class="ml-3">Dashboard</p>
+                  </a>
+              </li>
+
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./levels.html" class="nav-link">
+                      <i class="fas fa-building"></i>
+                      <p class="ml-3">Administrative Levels</p>
+                  </a>
+              </li>
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./activities.html" class="nav-link">
+                      <i class="fas fa-calendar-check"></i>
+                      <p class="ml-3"> Obj ,Act & Indi </p>
+                  </a>
+              </li>
+
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./targets.html" class="nav-link">
+                      <i class="fas fa-bullseye"></i>
+                      <p class="ml-3">Targets</p>
+                  </a>
+              </li>
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./archievement.html" class="nav-link">
+                      <i class="fas fa-calendar-check"></i>
+                      <p class="ml-3">archievement</p>
+                  </a>
+              </li>
+
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./reports.html" class="nav-link">
+                      <i class="fas fa-file-alt"></i>
+                      <p class="ml-3">Reports</p>
+                  </a>
+              </li>
+
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="./userSetting.html" class="nav-link">
+                      <i class="fas fa-user-cog"></i>
+                      <p class="ml-3">User Setting</p>
+                  </a>
+              </li>
+
+              <li class="nav-item mt-3 bg-dark">
+                  <a href="../registration/login.html" class="nav-link">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <p class="ml-3">Logout</p>
+                  </a>
+              </li>
+          </ul>
+      </nav>
+  </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Profile</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">User</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+
+            <section class="content">
+                <div class="container-fluid py-5">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="card mb-4 card-outline">
+                        <div class="card-body text-center box-profile">
+                          <img src="../../dist/img/profile.svg" alt="avatar"
+                            class="rounded-circle img-fluid" style="width: 150px;">
+                          <h5 class="my-3">Christina Joseph</h5>
+                          <p class="text-muted mb-1">DIT SACCOS Member</p>
+                          <p class="text-muted mb-1">christinajoseph@gmail.com</p>
+                          <p class="text-muted mb-1">+255 784 399 510</p>
+                          <p class="text-muted mb-1">tabata, dar es salaam</p>
+                          <p class="text-muted mb-4">Dar es salaam Institute of Technology</p>
+                          <div class="d-flex justify-content-center mb-2">
+                            <button type="button" class="btn btn-primary">view</button>
+                            <button type="button" class="btn btn-outline-primary ms-1">edit</button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="card" id="about">
+                        <div class="card-header">
+                          <h3 class="card-title">About Me</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                          <strong><i class="fas fa-book mr-1"></i> Education</strong>
+          
+                          <p class="text-muted">
+                            B.S. in Computer Science from the University of Tennessee at Knoxville
+                          </p>
+          
+                          <hr>
+          
+                          <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+          
+                          <p class="text-muted">Malibu, California</p>
+          
+                          <hr>
+          
+                          <strong><i class="fas fa-pencil-alt mr-1"></i> Proffesional</strong>
+          
+                          <p class="text-muted">
+                            <span class="tag tag-danger">UI Design</span>
+                            <span class="tag tag-success">Coding</span>
+                            <span class="tag tag-info">Javascript</span>
+                            <span class="tag tag-warning">PHP</span>
+                            <span class="tag tag-primary">Node.js</span>
+                          </p>
+          
+                          <hr>
+          
+                          <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+          
+                          <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    </div>
+                    <div class="col-lg-8">
+                      <div class="card">
+                        <div class="card-header p-2">
+                          <div class="card-title">
+                            <a class="nav-link" href="#settings" data-toggle="tab"><h3>Edit profile</h3></a>
+                          </div>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                          <div class="tab-content">
+                            <div class="tab-pane" id="settings">
+                              <form class="form-horizontal">
+                                <div class="form-group row">
+                                  <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                  <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputName" placeholder="Full Name">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                  <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email Address">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName2" class="col-sm-2 col-form-label">Phone</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName2" placeholder="phone number">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputExperience" class="col-sm-2 col-form-label">Residence</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName2" placeholder="where do you live">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputSkills" class="col-sm-2 col-form-label">Proffesional</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputSkills" placeholder="your proffesional">
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <div class="offset-sm-2 col-sm-10" style="align-items: center;">
+                                    <button type="submit" class="btn btn-danger">Submit</button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                            <!-- /.tab-pane -->
+                          </div>
+                          <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    </div>
+                  </div>
+                </div>
+            </section>
+
+            <footer class="main-footer">
+                <strong>Copyright &copy; 2024</strong>
+                All rights reserved.
+              </footer>
+        </div>
+        <!-- /.content-header -->
+       
+
+        <!-- REQUIRED SCRIPTS -->
+        <!-- jQuery -->
+        <script src="/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap -->
+        <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- overlayScrollbars -->
+        <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="/dist/js/adminlte.js"></script>
+
+        <!-- PAGE PLUGINS -->
+        <!-- jQuery Mapael -->
+        <script src="/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+        <script src="/plugins/raphael/raphael.min.js"></script>
+        <script src="/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+        <script src="/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+        <!-- ChartJS -->
+        <script src="/plugins/chart.js/Chart.min.js"></script>
+
+        <!-- AdminLTE for demo purposes -->
+        <script src="/dist/js/demo.js"></script>
+        <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+        <script src="/dist/js/pages/dashboard2.js"></script>
+</body>
+
+</html>

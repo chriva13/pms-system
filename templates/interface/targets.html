@@ -1,0 +1,186 @@
+{% extends "interface/base.html" %}
+
+{% block main %} 
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Targets</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Targets</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <div class="container-fluid">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <large class="card-title">
+                            <div class="row no-print">
+                                <div class="col-12">
+                                    <button class="btn btn-primary float-right" type="button"
+                                        id="new_application"><i class="fa fa-plus"></i> Add New Target</button>
+                                    <dialog id="myDialog"
+                                        style="width: 50%; height: 120%; background-color: white; z-index:1000001;">
+                                        <div class="card" style="background-color: white; color: black;">
+                                            <div class="card-header">
+                                                <div class="card-title">
+                                                    <h3>New Target</h3>
+                                                </div>
+                                            </div>
+                                            <div class="card-body ">
+                                                <form id="objectiveForm">
+                                                    <div class="form-group">
+                                                        <label for="objectiveCode">Objective Code</label>
+                                                        <input type="text" class="form-control" id="objectiveCode" placeholder="Objective Code">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="objectiveName">Objective Name</label>
+                                                        <textarea class="form-control" id="objectiveName" placeholder="Objective Name" rows="3"></textarea>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="service">Service Output</label>
+                                                        <input type="text" class="form-control" id="service" placeholder="Service">
+                                                    </div>
+                                                
+                                                    <div class="card-footer">
+                                                        <button type="submit"
+                                                            class="btn btn-primary">Submit</button>
+                                                        <button id="closeDialogBtn" class="btn btn-danger"
+                                                            style="float: right;" autofocus>&times;
+                                                            Cancel</button>
+                                                    </div>
+                                                </form>
+                                                
+                                            </div>
+                                        </div>
+
+                                    </dialog>
+                                    <button type="button" class="btn btn-primary float-right"
+                                        style="margin-right: 5px;">
+                                        <i class="fas fa-download"></i> Generate PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </large>
+
+                    </div>
+                    <div class="card-body">
+                        <table id="objectiveTable" class="table table-bordered">
+                            <colgroup>
+                                <col width="5%">
+                                <col width="20%">
+                                <col width="25%">
+                                <col width="20%">
+                                <col width="20%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Objective Code</th>
+                                    <th>Objective Name</th>
+                                    <th>Service Output</th>
+                                    <th>Actions</th> <!-- Action column header -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Objective rows will be inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <script>
+        // Get references to the button and the dialog
+        const openDialogBtn = document.getElementById('new_application');
+        const myDialog = document.getElementById("myDialog");
+        const closeDialogBtn = document.getElementById('closeDialogBtn');
+
+        // Event listener to open the dialog
+        openDialogBtn.addEventListener('click', () => {
+            myDialog.showModal();
+        });
+
+        // Event listener to close the dialog
+        closeDialogBtn.addEventListener('click', () => {
+            myDialog.close();
+        });
+        document.getElementById('objectiveForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+        
+            // Get input values
+            var objectiveCode = document.getElementById('objectiveCode').value;
+            var objectiveName = document.getElementById('objectiveName').value;
+            var service = document.getElementById('service').value;
+        
+            // Add row to table
+            var table = document.getElementById('objectiveTable').getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+            var cellId = newRow.insertCell(0);
+            var cellCode = newRow.insertCell(1);
+            var cellName = newRow.insertCell(2);
+            var cellService = newRow.insertCell(3);
+            var cellActions = newRow.insertCell(4); // New cell for actions
+            cellId.innerHTML = table.rows.length; // ID starts from 1
+            cellCode.innerHTML = objectiveCode;
+            cellName.innerHTML = objectiveName;
+            cellService.innerHTML = service;
+            cellActions.innerHTML = '<button class="btn btn-primary edit-btn">Edit</button> <button class="btn btn-danger delete-btn">Delete</button>';
+        
+            // Clear form fields
+            document.getElementById('objectiveForm').reset();
+        
+            // Display table
+            document.getElementById('tableContainer').style.display = 'block';
+        });
+        
+        document.getElementById('closeDialogBtn').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default behavior of the button (form submission)
+        
+            // Clear form fields
+            document.getElementById('objectiveForm').reset();
+        
+            // Hide form and display table
+            document.getElementById('tableContainer').style.display = 'block';
+        });
+        
+        // Handle delete and edit actions
+        document.getElementById('objectiveTable').addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-btn')) {
+                var row = event.target.closest('tr');
+                row.remove();
+            } else if (event.target.classList.contains('edit-btn')) {
+                var row = event.target.closest('tr');
+                var cells = row.getElementsByTagName('td');
+                var objectiveCode = cells[1].innerHTML;
+                var objectiveName = cells[2].innerHTML;
+                var service = cells[3].innerHTML;
+        
+                // Populate form fields for editing
+                document.getElementById('objectiveCode').value = objectiveCode;
+                document.getElementById('objectiveName').value = objectiveName;
+                document.getElementById('service').value = service;
+        
+                // Hide form and display table
+                document.getElementById('tableContainer').style.display = 'none';
+                document.getElementById('objectiveForm').style.display = 'block';
+        
+                // Remove row from table
+                row.remove();
+            }
+        });
+        
+        document.getElementById('tableContainer').style.display = 'none'; // Hide table initially
+    </script>        
+
+{% endblock  %}
