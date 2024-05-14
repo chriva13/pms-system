@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,17 +7,17 @@
   <title>CHAMA-MS | Log in (v2)</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href=" https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{% static "plugins/fontawesome-free/css/all.min.css"%}">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="{% static "plugins/icheck-bootstrap/icheck-bootstrap.min.css"%}">
   <!-- Theme style -->
-  <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="{% static "css/adminlte.min.css"%}">
 
   <style>
     body {
-      background: url('../../dist/img/performance.png') no-repeat center center fixed;
+      background: url("{% static "img/performance.png" %}") no-repeat center center fixed;
       background-size: cover;
       position: relative;
       height: 100vh; /* Set the height of the body to the full viewport height */
@@ -91,10 +92,10 @@
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="/pages/registration/forgotPassword.html">I forgot my password</a>
+        <a href="{% url "forgotPassword" %}">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="/pages/registration/register.html" class="text-center">Register to a system</a>
+        <a href="{% url "register" %}" class="text-center">Register to a system</a>
       </p>
     </div>
     <!-- /.card-body -->

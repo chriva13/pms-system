@@ -12,5 +12,8 @@ urlpatterns = [
     path('archievement/', ArchievementView.as_view(), name="archievement"),
     path('reports/', ReportsView.as_view(), name="reports"),
     path('indicators/', IndicatorsView.as_view(), name="indicators"),
+    path('register/', RegisterView.as_view(), name="register"),
+    path('login/', LoginView.as_view(), name="login"),
+    path('forgotPassword/', ForgotPasswordView.as_view(), name="forgotPassword"),
     
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
