@@ -36,32 +36,46 @@
                                                 </div>
 
                                             </div>
-                                            <div class="card-body ">
-                                                <form id="objectiveForm">
+                                            <div class="card-body">
+                                                <form id="indicatorForm">
                                                     <div class="form-group">
                                                         <label for="objectiveCode">Objective Code</label>
-                                                        <input type="text" class="form-control" id="objectiveCode" placeholder="Objective Code">
+                                                        <select class="form-control" id="objectiveCode">
+                                                            <!-- Options for Objective Code -->
+                                                            <option value="code1">Code A</option>
+                                                            <option value="code2">Code B</option>
+                                                            <!-- Add more options as needed -->
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="objectiveName">Objective Name</label>
-                                                        <textarea class="form-control" id="objectiveName" placeholder="Objective Name" rows="3"></textarea>
+                                                        <label for="indicatorName">Indicator Name</label>
+                                                        <textarea class="form-control" id="indicatorName" placeholder="Indicator Name" rows="3"></textarea>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="service">Service Output</label>
-                                                        <input type="text" class="form-control" id="service" placeholder="Service">
+                                                        <label for="type">Type</label>
+                                                        <select class="form-control" id="type">
+                                                            <!-- Options for Type -->
+                                                            <option value="type1">number</option>
+                                                            <option value="type2">words</option>
+                                                            <!-- Add more options as needed -->
+                                                        </select>
                                                     </div>
-                                                
+                                                    <div class="form-group">
+                                                        <label for="frequency">Frequency</label>
+                                                        <select class="form-control" id="frequency">
+                                                            <!-- Options for Frequency -->
+                                                            <option value="monthly">Monthly</option>
+                                                            <option value="quarterly">Quarterly</option>
+                                                            <option value="annually">Annually</option>
+                                                            <!-- Add more options as needed -->
+                                                        </select>
+                                                    </div>
                                                     <div class="card-footer">
-                                                        <button type="submit"
-                                                            class="btn btn-primary">Submit</button>
-                                                        <button id="closeDialogBtn" class="btn btn-danger"
-                                                            style="float: right;" autofocus>&times;
-                                                            Cancel</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        <button id="closeDialogBtn" class="btn btn-danger" style="float: right;" autofocus>&times; Cancel</button>
                                                     </div>
                                                 </form>
-                                                
                                             </div>
-                                        </div>
 
                                     </dialog>
                                     <button type="button" class="btn btn-primary float-right"
@@ -73,8 +87,9 @@
                         </large>
 
                     </div>
-                    <div class="card-body">
-                        <table id="objectiveTable" class="table table-bordered">
+                    <div class="table-responsive">
+                    <div class="table">
+                        <table id="indicatorTable" class="table table-bordered">
                             <colgroup>
                                 <col width="5%">
                                 <col width="20%">
@@ -86,8 +101,9 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Objective Code</th>
-                                    <th>Objective Name</th>
-                                    <th>Service Output</th>
+                                    <th>Indicator Name</th>
+                                    <th>Type</th>
+                                    <th>Frequency</th>
                                     <th>Actions</th> <!-- Action column header -->
                                 </tr>
                             </thead>
@@ -100,46 +116,61 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <style>
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        table th, table td {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
    
     <script>
-        // Get references to the button and the dialog
         const openDialogBtn = document.getElementById('new_application');
         const myDialog = document.getElementById("myDialog");
         const closeDialogBtn = document.getElementById('closeDialogBtn');
-
+        
         // Event listener to open the dialog
         openDialogBtn.addEventListener('click', () => {
             myDialog.showModal();
         });
-
+        
         // Event listener to close the dialog
         closeDialogBtn.addEventListener('click', () => {
             myDialog.close();
         });
-        document.getElementById('objectiveForm').addEventListener('submit', function(event) {
+        
+        document.getElementById('indicatorForm').addEventListener('submit', function(event) {
             event.preventDefault();
         
             // Get input values
             var objectiveCode = document.getElementById('objectiveCode').value;
-            var objectiveName = document.getElementById('objectiveName').value;
-            var service = document.getElementById('service').value;
+            var indicatorName = document.getElementById('indicatorName').value;
+            var type = document.getElementById('type').value;
+            var frequency = document.getElementById('frequency').value;
         
             // Add row to table
             var table = document.getElementById('objectiveTable').getElementsByTagName('tbody')[0];
             var newRow = table.insertRow();
             var cellId = newRow.insertCell(0);
             var cellCode = newRow.insertCell(1);
-            var cellName = newRow.insertCell(2);
-            var cellService = newRow.insertCell(3);
-            var cellActions = newRow.insertCell(4); // New cell for actions
+            var cellIndicator = newRow.insertCell(2);
+            var cellType = newRow.insertCell(3);
+            var cellFrequency = newRow.insertCell(4);
+            var cellActions = newRow.insertCell(5); // New cell for actions
             cellId.innerHTML = table.rows.length; // ID starts from 1
             cellCode.innerHTML = objectiveCode;
-            cellName.innerHTML = objectiveName;
-            cellService.innerHTML = service;
+            cellIndicator.innerHTML = indicatorName;
+            cellType.innerHTML = type;
+            cellFrequency.innerHTML = frequency;
             cellActions.innerHTML = '<button class="btn btn-primary edit-btn">Edit</button> <button class="btn btn-danger delete-btn">Delete</button>';
         
             // Clear form fields
-            document.getElementById('objectiveForm').reset();
+            document.getElementById('indicatorForm').reset();
         
             // Display table
             document.getElementById('tableContainer').style.display = 'block';
@@ -149,7 +180,7 @@
             event.preventDefault(); // Prevent the default behavior of the button (form submission)
         
             // Clear form fields
-            document.getElementById('objectiveForm').reset();
+            document.getElementById('indicatorForm').reset();
         
             // Hide form and display table
             document.getElementById('tableContainer').style.display = 'block';
@@ -164,17 +195,19 @@
                 var row = event.target.closest('tr');
                 var cells = row.getElementsByTagName('td');
                 var objectiveCode = cells[1].innerHTML;
-                var objectiveName = cells[2].innerHTML;
-                var service = cells[3].innerHTML;
+                var indicatorName = cells[2].innerHTML;
+                var type = cells[3].innerHTML;
+                var frequency = cells[4].innerHTML;
         
                 // Populate form fields for editing
                 document.getElementById('objectiveCode').value = objectiveCode;
-                document.getElementById('objectiveName').value = objectiveName;
-                document.getElementById('service').value = service;
+                document.getElementById('indicatorName').value = indicatorName;
+                document.getElementById('type').value = type;
+                document.getElementById('frequency').value = frequency;
         
                 // Hide form and display table
                 document.getElementById('tableContainer').style.display = 'none';
-                document.getElementById('objectiveForm').style.display = 'block';
+                document.getElementById('indicatorForm').style.display = 'block';
         
                 // Remove row from table
                 row.remove();
@@ -182,5 +215,5 @@
         });
         
         document.getElementById('tableContainer').style.display = 'none'; // Hide table initially
-    </script>        
+    </script>
 {% endblock main %}

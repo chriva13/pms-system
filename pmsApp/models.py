@@ -15,13 +15,17 @@ class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     contact = models.CharField(max_length=15)
-    user_type = models.BooleanField(choices=USER_CHOICES)
+    user_type = models.CharField(max_length=30, choices=USER_CHOICES)
 
+    
+    # Remove the username field
+    username = None
+    
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['email', 'password',]
 
     def __str__(self):
-        return self.username
+        return self.email
 
         
     groups = models.ManyToManyField(

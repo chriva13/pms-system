@@ -35,31 +35,42 @@
                                                     <h3>New Target</h3>
                                                 </div>
                                             </div>
-                                            <div class="card-body ">
-                                                <form id="objectiveForm">
+                                            <div class="card-body">
+                                                <form id="targetForm">
                                                     <div class="form-group">
-                                                        <label for="objectiveCode">Objective Code</label>
-                                                        <input type="text" class="form-control" id="objectiveCode" placeholder="Objective Code">
+                                                        <label for="targetName">Target Name</label>
+                                                        <input type="text" class="form-control" id="targetName" placeholder="Target Name">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="objectiveName">Objective Name</label>
-                                                        <textarea class="form-control" id="objectiveName" placeholder="Objective Name" rows="3"></textarea>
+                                                        <label for="indicatorID">Indicator ID</label>
+                                                        <select class="form-control" id="indicatorID">
+                                                            <!-- Options for Indicator ID -->
+                                                            <option value="id1">ID 1</option>
+                                                            <option value="id2">ID 2</option>
+                                                            <!-- Add more options as needed -->
+                                                        </select>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="service">Service Output</label>
-                                                        <input type="text" class="form-control" id="service" placeholder="Service">
+                                                        <label for="year">Year</label>
+                                                        <select class="form-control" id="year">
+                                                            <!-- Options for Year -->
+                                                            <option value="2022">2022</option>
+                                                            <option value="2023">2023</option>
+                                                            <option value="2024">2024</option>
+                                                            <!-- Add more options as needed -->
+                                                        </select>
                                                     </div>
-                                                
+                                                    <div class="form-group">
+                                                        <label for="indicatorTargetValue">Indicator Target Value</label>
+                                                        <input type="text" class="form-control" id="indicatorTargetValue" placeholder="Indicator Target Value">
+                                                    </div>
                                                     <div class="card-footer">
-                                                        <button type="submit"
-                                                            class="btn btn-primary">Submit</button>
-                                                        <button id="closeDialogBtn" class="btn btn-danger"
-                                                            style="float: right;" autofocus>&times;
-                                                            Cancel</button>
+                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                        <button id="closeDialogBtn" class="btn btn-danger" style="float: right;" autofocus>&times; Cancel</button>
                                                     </div>
                                                 </form>
-                                                
                                             </div>
+                                            
                                         </div>
 
                                     </dialog>
@@ -77,16 +88,18 @@
                             <colgroup>
                                 <col width="5%">
                                 <col width="20%">
-                                <col width="25%">
+                                <col width="20%">
+                                <col width="15%">
                                 <col width="20%">
                                 <col width="20%">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Objective Code</th>
-                                    <th>Objective Name</th>
-                                    <th>Service Output</th>
+                                    <th>Target Name</th>
+                                    <th>Indicator ID</th>
+                                    <th>Year</th>
+                                    <th>Indicator Target Value</th>
                                     <th>Actions</th> <!-- Action column header -->
                                 </tr>
                             </thead>
@@ -99,6 +112,16 @@
             </div>
         </div>
     </div>
+    <style>
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        table th, table td {
+            word-wrap: break-word;
+            white-space: normal;
+        }
+    </style>
    
     <script>
         // Get references to the button and the dialog
