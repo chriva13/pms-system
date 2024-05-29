@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', HomePageView.as_view(), name="home"),
     path('login/', LoginView.as_view(template_name="registration/login.html", next_page="home"), name="login"),
+    path('login-request', login_request, name="login-request"),
     path('objectives/', ObjectivesView.as_view(), name="objectives"),
     path('targets/', TargetsView.as_view(), name="targets"),
     path('archievement/', ArchievementView.as_view(), name="archievement"),
