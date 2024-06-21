@@ -1,0 +1,103 @@
+{% extends "interface/base.html" %}
+{% block main %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        {% if action == 'add-achievement' %}
+                        Add Achievement
+                        {% else %}
+                        Edit Achievement
+                        {% endif %}
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Achievements</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        Fill the form to {% if action == 'add-achievement' %}
+                        add
+                        {% else %}
+                        edit
+                        {% endif %} achievement
+                    </div>
+                    <div class="card-body ">
+                        <form id="achievementForm" method="post" action="{{ action }}">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="form-group">
+                                <label for="indicator-select">Indicator</label>
+                                {{ form.indicator }}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_indicator_value">Indicator Value</label>
+                                {{ form.indicator_value }}
+                                {% if form.indicator_value.errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.indicator_value.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="id_target_value">Achievement Value</label>
+                                {{ form.target_value }}
+                                {% if form.target_value.errors %}
+                                <div class="alert alert-danger">
+                                    {{ form.target_value.errors.as_text }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" style="float: right;" autofocus>
+                                    {% if action == 'add-achievement' %}
+                                    Add
+                                    {% else %}
+                                    Edit
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// JavaScript to dynamically update the indicator value dropdown
+document.addEventListener('DOMContentLoaded', function () {
+    const indicatorSelect = document.getElementById('indicator-select');
+    const indicatorValueSelect = document.getElementById('id_indicator_value');
+
+    indicatorSelect.addEventListener('change', function () {
+        const indicatorId = this.value;
+
+        fetch(`/api/indicator-values/${indicatorId}/`)
+            .then(response => response.json())
+            .then(data => {
+                indicatorValueSelect.innerHTML = '';
+                data.forEach(value => {
+                    const option = document.createElement('option');
+                    option.value = value.id;
+                    option.textContent = value.target_value;
+                    indicatorValueSelect.appendChild(option);
+                });
+            });
+    });
+});
+</script>
+
+{% endblock main %}

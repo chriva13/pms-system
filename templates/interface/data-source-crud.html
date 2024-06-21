@@ -1,0 +1,58 @@
+{% extends "interface/base.html" %}
+
+{% block main %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                   <h1 class="m-0">
+                        {% if action == '/data/add-source' %}
+                            Add Data Source
+                        {% else %}
+                            Edit Data Source
+                        {% endif %}
+                    </h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">{{ action }}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-header">
+                        Fill the form to {% if action == '/data/add-source' %}
+                        add
+                        {% else %}
+                        edit
+                        {% endif %} data source
+                    </div>
+                    <form method="post" action="{{ action }}">
+                        {% csrf_token %}
+                        <div class="card-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary" style="float: right;" autofocus>
+                                {% if action == '/data/add-source' %}
+                                Add
+                                {% else %}
+                                Edit
+                                {% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

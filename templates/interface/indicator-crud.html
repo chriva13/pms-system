@@ -1,0 +1,196 @@
+{% extends "interface/base.html" %}
+
+{% block main %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        {% if action == 'add-indicator' %}
+                        Add Indicator
+                        {% else %}
+                            Edit Indicator
+                        {% endif %}
+                    </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Indicators</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <div class="container-fluid">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                Fill the form to {% if action == 'add-indicator' %}
+                                add
+                                {% else %}
+                                    edit
+                                {% endif %} indicator
+                            </div><!-- /.col --><!-- /.col -->
+                        </div>
+                    </div>
+                     <div class="card-body ">
+                        <form id="indicatorForm" method="post" action="{{ action }}">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="indicatorName">Indicator Name</label>
+                                    {{ form.name }}
+                                    {% if form.name.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.name.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    {{ form.description }}
+                                    {% if form.description.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.description.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="data_source">Data Source</label>
+                                    {{ form.data_source }}
+                                    {% if form.data_source.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.data_source.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="data_collection_method">Data Collection </label>
+                                    {{ form.data_collection_method }}
+                                    {% if form.data_collection_method.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.data_collection_method.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                 <div class="form-group">
+                                    <label for="target">Target</label>
+                                    {{ form.target }}
+                                    {% if form.target.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.target.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    {{ form.type }}
+                                    {% if form.type.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.type.errors.as_text }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="frequency">Frequency</label>
+                                    {{ form.frequency }}
+                                    {% if form.frequency.errors %}
+                                        <div class="alert alert-danger">
+                                            {{ form.frequency.errors.as_text }}
+                                        </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        </div>
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" style="float: right;" autofocus>
+                                {% if action == 'add-indicator' %}
+                                    Add
+                                {% else %}
+                                    Edit
+                                {% endif %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% if action != 'add-indicator' %}
+
+                    <div class="card">
+    <div class="card-header">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+               Indicator Values
+            </div><!-- /.col --><!-- /.col -->
+            <div class="col-sm-6 text-right">
+                <a href="/indicators/{{ indicator.id }}/add-value" class="btn btn-primary edit-btn">Add Indicator Value</a>
+            </div>
+        </div>
+    </div>
+     <div class="card-body ">
+        <div class="table-responsive">
+    <div class="table">
+        <table id="indicatorValueTable" class="table table-bordered">
+{#                            <colgroup>#}
+{#                                <col width="5%">#}
+{#                                <col width="20%">#}
+{#                                <col width="25%">#}
+{#                                <col width="20%">#}
+{#                                <col width="20%">#}
+{#                            </colgroup>#}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Period</th>
+                    <th>Target Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for value in values %}
+                <tr>
+                    <td>{{ value.id }}</td>
+                    <td>{{ value.period }}</td>
+                    <td>{{ value.target_value }}</td>
+                    <td>
+                         <a href="/indicators/{{ indicator.id }}/edit-value/{{ value.id }}" class="btn btn-primary edit-btn">Edit</a>
+                        <button class="btn btn-danger delete-btn">Delete</button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No indicator values found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    </div>
+</div>
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock main %}

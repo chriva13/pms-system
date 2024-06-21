@@ -1,0 +1,85 @@
+{% extends "interface/base.html" %}
+
+{% block main %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">
+                        {% if action == 'add-target' %}
+                        Add Target
+                        {% else %}
+                            Edit Target
+                        {% endif %}
+                    </h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Targets</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+
+        <div class="container-fluid">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        Fill the form to {% if action == 'add-target' %}
+                        add
+                        {% else %}
+                            edit
+                        {% endif %} target
+                    </div>
+                     <div class="card-body ">
+                        <form id="targetForm" method="post" action="{{ action }}">
+                            {% csrf_token %}
+                            {{ form.non_field_errors }}
+                            <div class="form-group">
+                                <label for="targetName">Target Name</label>
+                                {{ form.name }}
+                                {% if form.name.errors %}
+                                    <div class="alert alert-danger">
+                                        {{ form.name.errors.as_text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                {{ form.description }}
+                                {% if form.description.errors %}
+                                    <div class="alert alert-danger">
+                                        {{ form.description.errors.as_text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label for="objective">Objective</label>
+                                {{ form.objective }}
+                                {% if form.objective.errors %}
+                                    <div class="alert alert-danger">
+                                        {{ form.objective.errors.as_text }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary" style="float: right;" autofocus>
+                                {% if action == 'add-target' %}
+                                    Add
+                                {% else %}
+                                    Edit
+                                {% endif %}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock main %}
