@@ -24,7 +24,7 @@ def add_data_source(request):
             return redirect('datas')
     else:
         form = DataSourceForm()
-    return render(request, 'interface/data-source-crud.html', {'form': form, 'action': '/data/add-source'})
+    return render(request, 'interface/data-source-crud.html', {'form': form, 'action': '/data/add-source/'})
 
 
 def edit_data_source(request, pk):
