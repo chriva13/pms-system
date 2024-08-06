@@ -215,7 +215,7 @@ class Report(models.Model):
                     'indicators': [
                         {
                             'sn': n + 1,
-                            'initial_value': self.__get_indicator_value(periods[0], indicators[n]),
+                            'initial_value': self.__get_baseline(indicators[n], periods[0]),
                             'indicator': indicators[n],
                             'indicator_values': self.__get_indicator_values(indicators[n], periods)
                         } for n in range(len(indicators))]
@@ -234,12 +234,12 @@ class Report(models.Model):
         except IndicatorValue.DoesNotExist:
             return 0
 
-    # def __get_baseline(self, indicator: Indicator, initial_period: Period):
-    #     try:
-    #         indicator_value = IndicatorValue.objects.get(indicator=indicator, period=initial_period)
-    #         return Achievement.objects.get(indicator_value=indicator_value)
-    #     except IndicatorValue.DoesNotExist:
-    #         return 0
+    @staticmethod
+    def __get_baseline(indicator: Indicator, initial_period: Period):
+        try:
+            return Achievement.objects.get(indicator_value__indicator=indicator, indicator_value__period=initial_period).target_value
+        except Achievement.DoesNotExist:
+            return 0
 
     def __obtain_periods_list(self):
         return [Period.objects.get(id=n) for n in range(self.indicator_period_start.id, self.indicator_period_end.id)]

@@ -48,12 +48,19 @@ class TargetsView(TemplateView):
         return context
 
 
+def construct_percent(achievement: Achievement):
+    percent = int(achievement.indicator_value.target_value) / int(achievement.target_value)
+    return percent * 100
+
+
 class AchievementView(TemplateView):
     template_name = "interface/archievement.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['achievements'] = Achievement.objects.all()
+        achievements = Achievement.objects.all()
+        context['achievements'] = [{'indicator_value': a.indicator_value, 'target_value': a.target_value, 'id': a.id, 'percent': construct_percent(a)}
+                                   for a in achievements]
 
         return context
 

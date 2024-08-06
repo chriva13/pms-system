@@ -10,6 +10,8 @@ def add_report_type():
     report_types = ReportType.objects.all()
     if report_types.count() == 0:
         ReportType.objects.create(name='Monitoring Plan ')
+    if report_types.count() == 1:
+        ReportType.objects.create(name='Achievement Report')
 
 
 def add_report(request):

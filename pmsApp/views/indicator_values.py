@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from pmsApp.forms import IndicatorValueForm
 from pmsApp.models import Indicator, IndicatorValue, Period
@@ -52,3 +53,10 @@ def edit_indicator_value(request, indicator_id, value_id):
             'action': f'/indicators/{indicator.id}/edit-value/{indicator_value.id}'
         }
     )
+
+
+def get_indicator_values(request, indicator_id):
+    # Fetch indicator values based on the selected indicator
+    values = IndicatorValue.objects.filter(indicator_id=indicator_id).values('id', 'target_value')
+    data = list(values)
+    return JsonResponse(data, safe=False)

@@ -32,6 +32,7 @@ urlpatterns = [
     path('indicators/<int:indicator_id>/add-value', add_indicator_value, name='add-indicator-value'),
     path('indicators/<int:indicator_id>/edit-value/<int:value_id>', edit_indicator_value, name='edit-indicator-value'),
     path('indicators/<int:indicator_id>/values', IndicatorsValueView.as_view(), name='indicator-value-list'),
+    path('api/indicator-values/<int:indicator_id>/', get_indicator_values, name='get_indicator_values'),
 
     # Achievements APIs
     path('achievements/', AchievementView.as_view(), name="achievements"),

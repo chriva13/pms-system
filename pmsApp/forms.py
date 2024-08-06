@@ -89,7 +89,7 @@ class AchievementForm(forms.ModelForm):
         model = Achievement
         fields = ['indicator_value', 'target_value']
         widgets = {
-            'indicator_value': forms.Select(attrs={'class': 'form-control'}),
+            'indicator_value': forms.Select(attrs={'class': 'form-control', 'id': 'id_indicator'}),
             'target_value': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Target Value'}),
         }
 

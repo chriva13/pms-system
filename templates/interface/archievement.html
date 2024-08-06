@@ -46,6 +46,7 @@
                                         <th>Indicator</th>
                                         <th>Indicator Value</th>
                                         <th>Target Value</th>
+                                        <th>Percent</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -56,6 +57,7 @@
                                         <td>{{ achievement.indicator_value.indicator.name }}</td>
                                         <td>{{ achievement.indicator_value.target_value }}</td>
                                         <td>{{ achievement.target_value }}</td>
+                                        <td>{{ achievement.percent }}%</td>
                                         <td>
                                             <a href="/edit-achievement/{{ achievement.id }}" class="btn btn-primary">Edit</a>
                                             <button class="btn btn-danger delete-btn" data-id="{{ achievement.id }}">Delete</button>
