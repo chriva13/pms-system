@@ -10,48 +10,53 @@
         }
         body {
             font-family: Arial, sans-serif;
-            font-size: 10px;
+            font-size: 10px; /* Reduced font size */
         }
         table {
+            width: 1030px; /* Set the table width to 70px */
             border-collapse: collapse;
+            table-layout: fixed; /* Make sure the table adjusts to the fixed width */
         }
         th, td {
             border: 1px solid black;
-            padding: 8px;
+            padding: 2px; /* Reduced padding */
             text-align: left;
-            vertical-align: center;
+            vertical-align: middle;
+            word-wrap: break-word; /* Ensure content wraps within the cell */
         }
         th {
             background-color: #64869f;
+            color: black;
         }
         .vertical-text {
             writing-mode: vertical-rl;
             transform: rotate(-90deg);
+            text-align: center;
         }
         .bold {
             font-weight: bold;
         }
         .max-h {
-            height: 100px;
+            height: 70px; /* Adjust height as needed */
         }
     </style>
 </head>
 <body>
     <div style="text-align: center">
-        <h1>
+        <h1 style="font-size: 10px;"> <!-- Reduced heading font size -->
             Monitoring Plan Report
         </h1>
     </div>
     <div>
         <table>
             <tr>
-                <th rowspan="2">SN</th>
-                <th rowspan="2">Indicator & Indicator Description</th>
-                <th colspan="2">Baseline</th>
-                <th colspan="{{ data.period_length }}">Indicator Target Value</th>
-                <th colspan="4">Data Collection and Methods of Analysis</th>
-                <th rowspan="2" class="max-h"><div class="vertical-text">Frequency of reporting</div></th>
-                <th rowspan="2"><div class="vertical-text">Frequency of Data Collection</div></th>
+                <th rowspan="2" style="width: 5px;">SN</th> <!-- Reduced column width -->
+                <th rowspan="2" style="width: 15px;">Indicator & Indicator Description</th> <!-- Reduced column width -->
+                <th colspan="2" style="width: 10px;">Baseline</th> <!-- Adjusted column width -->
+                <th colspan="{{ data.period_length }}" style="width: 20px;">Indicator Target Value</th> <!-- Adjusted column width -->
+                <th colspan="4" style="width: 20px;">Data Collection and Methods of Analysis</th> <!-- Adjusted column width -->
+                <th rowspan="2" class="max-h" style="width: 5px;"><div class="vertical-text">Frequency of reporting</div></th>
+                <th rowspan="2" style="width: 5px;"><div class="vertical-text">Frequency of Data Collection</div></th>
             </tr>
             <tr>
                 <th>Data</th>
