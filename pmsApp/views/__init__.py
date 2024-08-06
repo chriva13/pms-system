@@ -49,7 +49,7 @@ class TargetsView(TemplateView):
 
 
 def construct_percent(achievement: Achievement):
-    percent = int(achievement.indicator_value.target_value) / int(achievement.target_value)
+    percent = int(achievement.target_value) / int(achievement.indicator_value.target_value)
     return percent * 100
 
 
