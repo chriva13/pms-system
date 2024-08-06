@@ -12,7 +12,7 @@ from django.views.generic import TemplateView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from pmsApp.forms import CustomUserCreationForm
-from pmsApp.models import Objective, CustomUser, Indicator, Target
+from pmsApp.models import Objective, CustomUser, Indicator, Target, Report
 
 
 class HomePageView(LoginRequiredMixin, TemplateView):
@@ -70,7 +70,12 @@ class DatasView(TemplateView):
 
 
 class ReportsView(TemplateView):
-    template_name = "interface/reports.html"
+    template_name = "reports/all.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reports'] = Report.objects.all()
+        return context
 
 
 class IndicatorsView(TemplateView):

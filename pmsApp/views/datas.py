@@ -21,10 +21,10 @@ def add_data_source(request):
             data_source = form.save(commit=False)
             data_source.created_by = request.user
             data_source.save()
-            return redirect('datas')
+            return redirect('/datas')
     else:
         form = DataSourceForm()
-    return render(request, 'interface/data-source-crud.html', {'form': form, 'action': '/data/add-source/'})
+    return render(request, 'interface/data-source-crud.html', {'form': form, 'action': '/data/add-source'})
 
 
 def edit_data_source(request, pk):
@@ -36,7 +36,7 @@ def edit_data_source(request, pk):
             return redirect('datas')
     else:
         form = DataSourceForm(instance=data_source)
-    return render(request, 'interface/data-source-crud.html', {'form': form, 'action': f'/data/edit-source/{data_source.id}/'})
+    return render(request, 'interface/data-source-crud.html', {'form': form, 'action': f'/data/edit-source/{data_source.id}'})
 
 
 def delete_data_source(request, pk):
@@ -58,7 +58,7 @@ def add_data_collection_method(request):
             return redirect('datas')
     else:
         form = DataCollectionMethodForm()
-    return render(request, 'interface/data-collection-crud.html', {'form': form, 'action': '/data/add-method/'})
+    return render(request, 'interface/data-collection-crud.html', {'form': form, 'action': '/data/add-method'})
 
 
 def edit_data_collection_method(request, pk):
@@ -70,7 +70,7 @@ def edit_data_collection_method(request, pk):
             return redirect('datas')
     else:
         form = DataCollectionMethodForm(instance=data_collection_method)
-    return render(request, 'interface/data-collection-crud.html', {'form': form, 'action': '/data/edit-method/<int:pk>/'})
+    return render(request, 'interface/data-collection-crud.html', {'form': form, 'action': '/data/edit-method/<int:pk>'})
 
 
 def delete_data_collection_method(request, pk):

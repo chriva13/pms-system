@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Indicators</h1>
+                    <h1 class="m-0">Reports</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -25,7 +25,7 @@
                         <large class="card-title">
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <a href="/add-indicator" class="btn btn-primary float-right" type="button"><i class="fa fa-plus"></i> Add New Indicator</a>
+                                    <a href="/add-report" class="btn btn-primary float-right" type="button"><i class="fa fa-plus"></i> Add Report</a>
 {#                                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">#}
 {#                                        <i class="fas fa-download"></i> Generate PDF#}
 {#                                    </button>#}
@@ -46,31 +46,27 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Indicator Name</th>
-                                    <th>Description</th>
-                                    <th>Target</th>
-                                    <th>Type</th>
-                                    <th>Frequency</th>
+                                    <th>Report Type</th>
+                                    <th>Start Period</th>
+                                    <th>End Period</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for indicator in indicators %}
+                                {% for report in reports %}
                                 <tr>
-                                    <td>{{ indicator.id }}</td>
-                                    <td>{{ indicator.name }}</td>
-                                    <td>{{ indicator.description }}</td>
-                                    <td>{{ indicator.target.name }}</td>
-                                    <td>{{ indicator.get_type_display }}</td>
-                                    <td>{{ indicator.get_frequency_display }}</td>
+                                    <td>{{ report.id }}</td>
+                                    <td>{{ report.type }}</td>
+                                    <td>{{ report.indicator_period_start }}</td>
+                                    <td>{{ report.indicator_period_end}}</td>
                                     <td>
-                                         <a href="/edit-indicator/{{ indicator.id }}" class="btn btn-primary edit-btn">Edit</a>
-                                        <button class="btn btn-danger delete-btn">Delete</button>
+                                         <button class="btn btn-primary edit-btn">Generate</button>
+{#                                        <button class="btn btn-danger delete-btn">Delete</button>#}
                                     </td>
                                 </tr>
                                 {% empty %}
                                 <tr>
-                                    <td colspan="7">No indicators found.</td>
+                                    <td colspan="5">No Reports found.</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

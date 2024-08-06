@@ -5,6 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView
 
+from pmsApp.views.reports import plan_report_template, add_report
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -39,17 +40,21 @@ urlpatterns = [
 
     # Datas APIs
     path('datas/', DatasView.as_view(), name='datas'),
-    path('data/add-source/', add_data_source, name='add_data_source'),
-    path('data/edit-source/<int:pk>/', edit_data_source, name='edit_data_source'),
-    path('data/delete-source/<int:pk>/', delete_data_source, name='delete_data_source'),
-    path('data/add-method/', add_data_collection_method, name='add_data_collection_method'),
-    path('data/edit-method/<int:pk>/', edit_data_collection_method, name='edit_data_collection_method'),
-    path('data/delete-method/<int:pk>/', delete_data_collection_method, name='delete_data_collection_method'),
+    path('data/add-source', add_data_source, name='add_data_source'),
+    path('data/edit-source/<int:pk>', edit_data_source, name='edit_data_source'),
+    path('data/delete-source/<int:pk>', delete_data_source, name='delete_data_source'),
+    path('data/add-method', add_data_collection_method, name='add_data_collection_method'),
+    path('data/edit-method/<int:pk>', edit_data_collection_method, name='edit_data_collection_method'),
+    path('data/delete-method/<int:pk>', delete_data_collection_method, name='delete_data_collection_method'),
 
 
     path('reports/', ReportsView.as_view(), name="reports"),
     path('register/', RegisterView.as_view(), name="register"),
     path('login/', LoginView.as_view(), name="login"),
     path('forgotPassword/', ForgotPasswordView.as_view(), name="forgotPassword"),
-    
+
+    # Reports Resources
+    path('add-report', add_report, name='plan_report_template'),
+    path('report/template/plan/<str:pk>', plan_report_template, name='plan_report_template')
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

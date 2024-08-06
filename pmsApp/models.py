@@ -132,9 +132,16 @@ class Indicator(models.Model):
         return self.name
 
 
+class Period(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class IndicatorValue(models.Model):
     indicator = models.ForeignKey(Indicator, on_delete=models.CASCADE)
-    period = models.CharField(max_length=255)
+    period = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='+')
     target_value = models.CharField(max_length=255)
 
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
@@ -154,4 +161,74 @@ class Achievement(models.Model):
     updated_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, related_name='+')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class ReportType(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
+class Report(models.Model):
+    type = models.ForeignKey(ReportType, on_delete=models.CASCADE)
+    indicator_period_start = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='+')
+    indicator_period_end = models.ForeignKey(Period, on_delete=models.CASCADE, related_name='+')
+
+    created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def construct_monitoring_plan_report(self):
+        # get periods
+        periods = self.__obtain_periods_list()
+        print(periods)
+
+        # get objectives
+        objective_data = []
+        objectives = Objective.objects.all()
+        for i in range(len(objectives)):
+            targets = self.__obtain_objective_targets(periods[0], objectives[i])
+            objective_data.append({
+                'sn': i + 1,
+                'objective': objectives[i],
+                'targets': targets,
+            })
+
+        return {
+            'periods': periods,
+            'period_length': len(periods),
+            'total_span': len(periods) + 10,
+            'initial_period': periods[0],
+            'objectives': objective_data
+        }
+
+    def __obtain_objective_targets(self, initial_period: Period, objective: Objective):
+        objective_data = []
+
+        targets = Target.objects.filter(objective=objective)
+        for i in range(targets.count()):
+            indicators = Indicator.objects.filter(target=targets[i])
+            if indicators.count() > 0:
+                objective_data.append({
+                    'sn': i + 1,
+                    'target': targets[i],
+                    'indicators': [
+                        {
+                            'sn': n + 1,
+                            'initial_value': self.__get_indicator_value(initial_period, indicators[n]),
+                            'indicator': indicators[n]} for n in range(len(indicators))]
+                })
+
+        return objective_data
+
+
+    def __get_indicator_value(self, period: Period, indicator: Indicator):
+        try:
+            indicator_value = IndicatorValue.objects.get(indicator=indicator, period=period)
+            return indicator_value.target_value
+        except IndicatorValue.DoesNotExist:
+            return 0
+
+    def __obtain_periods_list(self):
+        return [Period.objects.get(id=n) for n in range(self.indicator_period_start.id, self.indicator_period_end.id)]
 

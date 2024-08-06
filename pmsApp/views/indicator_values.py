@@ -1,10 +1,19 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from pmsApp.forms import IndicatorValueForm
-from pmsApp.models import Indicator, IndicatorValue
+from pmsApp.models import Indicator, IndicatorValue, Period
+
+
+def add_periods():
+    periods = Period.objects.all()
+    if periods.count() == 0:
+        periods = [f'20{f"0{n}" if n < 10 else n}/{f"0{n+1}" if n+1 < 10 else n+1}' for n in range(20, 50)]
+        for p in periods:
+            Period.objects.create(name=p)
 
 
 def add_indicator_value(request, indicator_id):
     indicator = get_object_or_404(Indicator, id=indicator_id)
+    add_periods()
     if request.method == 'POST':
         form = IndicatorValueForm(request.POST)
         if form.is_valid():

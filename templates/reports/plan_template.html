@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Monitoring Plan</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 1cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 10px;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            transform: rotate(-180deg);
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .max-h {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <th rowspan="2">SN</th>
+                <th rowspan="2">Indicator & Indicator Description</th>
+                <th colspan="2">Baseline</th>
+                <th colspan="{{ data.period_length }}">Indicator Target Value</th>
+                <th colspan="4">Data Collection and Methods of Analysis</th>
+                <th class="vertical-text" rowspan="2">Frequency of reporting</th>
+                <th class="vertical-text" rowspan="2">Frequency of Data Collection</th>
+            </tr>
+            <tr>
+                <th>Data</th>
+                <th>Value</th>
+                {% for period in data.periods %}
+                    <th>{{ period }}</th>
+                {% endfor %}
+                <th>Data Source</th>
+                <th>Data Collection Method</th>
+                <th class="vertical-text max-h">Frequency of Data Collection</th>
+                <th class="vertical-text max-h">Means of Verification</th>
+            </tr>
+            {% for objective in data.objectives %}
+                <tr>
+                    <td class="bold" colspan="{{ data.total_span }}">Strategic Objective {{ objective.sn }}: {{ objective.objective.name }}</td>
+                </tr>
+                {% for target in objective.targets %}
+                    <tr>
+                        <td colspan="{{ data.total_span }}" class="bold">Target No {{ target.sn }}: {{ target.target.name }}</td>
+                    </tr>
+                    {% for indicator in target.indicators %}
+                        <tr>
+                            <td>{{ indicator.sn }}</td>
+                            <td><span class="bold">{{ indicator.indicator.name }}.</span> {{ indicator.indicator.description }}</td>
+                            <td>{{ data.initial_period }}</td>
+                            <td>{{ indicator.initial_value }}</td>
+                            {% for period in data.periods %}
+                                <td>500</td>
+                            {% endfor %}
+                            <td>{{ indicator.indicator.data_source }}</td>
+                            <td>{{ indicator.indicator.data_collection_method }}</td>
+                            <td>{{ indicator.indicator.frequency }}</td>
+                            <td>Medical Records / Reports</td>
+                            <td>Quarterly</td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

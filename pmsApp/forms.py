@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import DateInput
 
 from .models import CustomUser, Objective, Indicator, Target, IndicatorValue, Achievement, DataSource, \
-    DataCollectionMethod
+    DataCollectionMethod, Report
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -78,7 +78,8 @@ class IndicatorValueForm(forms.ModelForm):
         model = IndicatorValue
         fields = ['period', 'target_value']
         widgets = {
-            'period': MonthYearWidget(),
+            # 'period': MonthYearWidget(),
+            'period': forms.Select(attrs={'class': 'form-control'}),
             'target_value': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Target Value'}),
         }
 
@@ -118,3 +119,12 @@ class DataCollectionMethodForm(forms.ModelForm):
         }
 
 
+class ReportForm(forms.ModelForm):
+    class Meta:
+        model = Report
+        fields = ['type', 'indicator_period_start', 'indicator_period_end']
+        widgets = {
+            'type': forms.Select(attrs={'class': 'form-control'}),
+            'indicator_period_start': forms.Select(attrs={'class': 'form-control'}),
+            'indicator_period_end': forms.Select(attrs={'class': 'form-control'}),
+        }
