@@ -46,9 +46,9 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Objective</th>
                                     <th>Target Name</th>
                                     <th>Description</th>
-                                    <th>Objective</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -56,9 +56,9 @@
                                 {% for target in targets %}
                                 <tr>
                                     <td>{{ target.id }}</td>
+                                    <td>{{ target.objective.name }}</td>
                                     <td>{{ target.name }}</td>
                                     <td>{{ target.description }}</td>
-                                    <td>{{ target.objective }}</td>
                                     <td>
                                          <a href="/edit-target/{{ target.id }}" class="btn btn-primary edit-btn">Edit</a>
                                         <button class="btn btn-danger delete-btn">Delete</button>

@@ -46,9 +46,10 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Objective</th>
+                                    <th>Target</th>
                                     <th>Indicator Name</th>
                                     <th>Description</th>
-                                    <th>Target</th>
                                     <th>Type</th>
                                     <th>Frequency</th>
                                     <th>Actions</th>
@@ -58,9 +59,10 @@
                                 {% for indicator in indicators %}
                                 <tr>
                                     <td>{{ indicator.id }}</td>
+                                    <td>{{ indicator.target.objective.name }}</td>
+                                    <td>{{ indicator.target.name }}</td>
                                     <td>{{ indicator.name }}</td>
                                     <td>{{ indicator.description }}</td>
-                                    <td>{{ indicator.target.name }}</td>
                                     <td>{{ indicator.get_type_display }}</td>
                                     <td>{{ indicator.get_frequency_display }}</td>
                                     <td>

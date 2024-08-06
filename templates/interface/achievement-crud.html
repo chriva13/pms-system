@@ -41,7 +41,7 @@
                                 {{ form.indicator }}
                             </div>
                             <div class="form-group">
-                                <label for="id_indicator_value">Indicator Value</label>
+                                <label for="id_indicator_value">Indicator Target Value</label>
                                 {{ form.indicator_value }}
                                 {% if form.indicator_value.errors %}
                                 <div class="alert alert-danger">
@@ -50,7 +50,7 @@
                                 {% endif %}
                             </div>
                             <div class="form-group">
-                                <label for="id_target_value">Achievement Value</label>
+                                <label for="id_target_value">Achieved Value</label>
                                 {{ form.target_value }}
                                 {% if form.target_value.errors %}
                                 <div class="alert alert-danger">

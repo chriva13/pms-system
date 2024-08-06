@@ -187,7 +187,7 @@ class Report(models.Model):
         objective_data = []
         objectives = Objective.objects.all()
         for i in range(len(objectives)):
-            targets = self.__obtain_objective_targets(periods[0], objectives[i])
+            targets = self.__obtain_objective_targets(periods, objectives[i])
             objective_data.append({
                 'sn': i + 1,
                 'objective': objectives[i],
@@ -202,7 +202,7 @@ class Report(models.Model):
             'objectives': objective_data
         }
 
-    def __obtain_objective_targets(self, initial_period: Period, objective: Objective):
+    def __obtain_objective_targets(self, periods: list[Period], objective: Objective):
         objective_data = []
 
         targets = Target.objects.filter(objective=objective)
@@ -215,19 +215,31 @@ class Report(models.Model):
                     'indicators': [
                         {
                             'sn': n + 1,
-                            'initial_value': self.__get_indicator_value(initial_period, indicators[n]),
-                            'indicator': indicators[n]} for n in range(len(indicators))]
+                            'initial_value': self.__get_indicator_value(periods[0], indicators[n]),
+                            'indicator': indicators[n],
+                            'indicator_values': self.__get_indicator_values(indicators[n], periods)
+                        } for n in range(len(indicators))]
                 })
 
         return objective_data
 
+    def __get_indicator_values(self, indicator: Indicator, periods: list[Period]):
+        return [self.__get_indicator_value(p, indicator) for p in periods]
 
-    def __get_indicator_value(self, period: Period, indicator: Indicator):
+    @staticmethod
+    def __get_indicator_value(period: Period, indicator: Indicator):
         try:
             indicator_value = IndicatorValue.objects.get(indicator=indicator, period=period)
             return indicator_value.target_value
         except IndicatorValue.DoesNotExist:
             return 0
+
+    # def __get_baseline(self, indicator: Indicator, initial_period: Period):
+    #     try:
+    #         indicator_value = IndicatorValue.objects.get(indicator=indicator, period=initial_period)
+    #         return Achievement.objects.get(indicator_value=indicator_value)
+    #     except IndicatorValue.DoesNotExist:
+    #         return 0
 
     def __obtain_periods_list(self):
         return [Period.objects.get(id=n) for n in range(self.indicator_period_start.id, self.indicator_period_end.id)]
