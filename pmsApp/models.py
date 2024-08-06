@@ -267,14 +267,14 @@ class Report(models.Model):
         try:
             indicator_value = IndicatorValue.objects.get(indicator=indicator, period=period)
             return indicator_value.target_value
-        except IndicatorValue.DoesNotExist:
+        except Exception:
             return 0
 
     @staticmethod
     def __get_achievement(indicator: Indicator, initial_period: Period):
         try:
             return Achievement.objects.get(indicator_value__indicator=indicator, indicator_value__period=initial_period).target_value
-        except Achievement.DoesNotExist:
+        except Exception:
             return 0
 
     def __obtain_periods_list(self):
