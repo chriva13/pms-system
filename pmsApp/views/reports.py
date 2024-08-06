@@ -36,8 +36,10 @@ def plan_report_template(request, pk):
         {'data': data}, request=request
     )
 
-    # Generate PDF from the rendered HTML
-    pdf_file = weasyprint.HTML(string=html_string).write_pdf()
+    # Generate PDF from the rendered HTML with CSS for landscape orientation
+    css = weasyprint.CSS(string='@page { size: A4 landscape; }')
+    pdf_file = weasyprint.HTML(string=html_string).write_pdf(stylesheets=[css])
+    # pdf_file = weasyprint.HTML(string=html_string).write_pdf()
 
     # Create a response to send the PDF to the browser
     response = HttpResponse(pdf_file, content_type='application/pdf')
