@@ -13,7 +13,6 @@
             font-size: 10px;
         }
         table {
-            width: 10px;
             border-collapse: collapse;
         }
         th, td {
@@ -33,18 +32,23 @@
             font-weight: bold;
         }
         .max-h {
-            height: 50px;
+            height: 100px;
         }
     </style>
 </head>
 <body>
+    <div style="text-align: center">
+        <h1>
+            Achievement Report
+        </h1>
+    </div>
     <div>
         <table>
             <tr>
                 <th rowspan="2">SN</th>
                 <th rowspan="2">Indicator & Indicator Description</th>
                 <th colspan="2">Baseline</th>
-                <th colspan="{{ data.period_length }}">Indicator Percentage</th>
+                <th colspan="{{ data.period_length }}">Indicator Achievement and Percentage</th>
                 <th colspan="4">Data Collection and Methods of Analysis</th>
                 <th rowspan="2" class="max-h"><div class="vertical-text">Frequency of reporting</div></th>
                 <th rowspan="2"><div class="vertical-text">Frequency of Data Collection</div></th>
@@ -53,7 +57,7 @@
                 <th>Data</th>
                 <th>Value</th>
                 {% for period in data.periods %}
-                    <th>{{ period }}</th>
+                    <th colspan="2">{{ period }}</th>
                 {% endfor %}
                 <th>Data Source</th>
                 <th>Data Collection Method</th>
@@ -68,6 +72,13 @@
                     <tr>
                         <td colspan="{{ data.total_span }}" class="bold">Target No {{ target.sn }}: {{ target.target.name }}</td>
                     </tr>
+                    <tr>
+                        <td colspan="4"></td>
+                        {% for period in data.periods %}
+                            <th>Target</th>
+                            <th>%</th>
+                        {% endfor %}
+                    </tr>
                     {% for indicator in target.indicators %}
                         <tr>
                             <td>{{ indicator.sn }}</td>
@@ -75,7 +86,8 @@
                             <td>{{ data.initial_period }}</td>
                             <td>{{ indicator.initial_value }}</td>
                             {% for indicator_value in indicator.indicator_values %}
-                                <td>{{ indicator_value }}</td>
+                                <td>{{ indicator_value.indicator_value }}</td>
+                                <td>{{ indicator_value.achieved_percentage }}%</td>
                             {% endfor %}
                             <td>{{ indicator.indicator.data_source }}</td>
                             <td>{{ indicator.indicator.data_collection_method }}</td>

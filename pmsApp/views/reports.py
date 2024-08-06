@@ -28,13 +28,13 @@ def add_report(request):
     return render(request, 'reports/add_report.html', {'form': form, 'action': 'add-report'})
 
 
-def plan_report_template(request, pk):
+def get_report(request, pk):
     report = Report.objects.get(id=pk)
-    data = report.construct_monitoring_plan_report()
+    data = report.construct_report()
 
     # Render the HTML template with context data
     html_string = render_to_string(
-        'reports/plan_template.html',
+        'reports/plan_template.html' if report.type.name == 'Monitoring Plan ' else 'reports/achievement_template.html',
         {'data': data}, request=request
     )
 

@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LoginView
 
-from pmsApp.views.reports import plan_report_template, add_report
+from pmsApp.views.reports import get_report, add_report
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -56,7 +56,7 @@ urlpatterns = [
 
     # Reports Resources
     path('add-report', add_report, name='plan_report_template'),
-    path('reports/<str:pk>', plan_report_template, name='plan_report_templates'),
-    path('report/template/plan/<str:pk>', plan_report_template, name='plan_report_template')
+    path('reports/<str:pk>', get_report, name='plan_report_templates'),
+    path('report/template/plan/<str:pk>', get_report, name='plan_report_template')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

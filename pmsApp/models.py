@@ -178,6 +178,33 @@ class Report(models.Model):
     created_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='+')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def construct_report(self):
+        return self.construct_achievement_plan_report() if self.type.name == 'Achievement Report' else self.construct_monitoring_plan_report()
+
+    def construct_achievement_plan_report(self):
+        # get periods
+        periods = self.__obtain_periods_list()
+        print(periods)
+
+        # get objectives
+        objective_data = []
+        objectives = Objective.objects.all()
+        for i in range(len(objectives)):
+            targets = self.__obtain_objective_targets(periods, objectives[i])
+            objective_data.append({
+                'sn': i + 1,
+                'objective': objectives[i],
+                'targets': targets,
+            })
+
+        return {
+            'periods': periods,
+            'period_length': len(periods) * 2,
+            'total_span': len(periods) * 2 + 10,
+            'initial_period': periods[0],
+            'objectives': objective_data
+        }
+
     def construct_monitoring_plan_report(self):
         # get periods
         periods = self.__obtain_periods_list()
@@ -215,13 +242,22 @@ class Report(models.Model):
                     'indicators': [
                         {
                             'sn': n + 1,
-                            'initial_value': self.__get_baseline(indicators[n], periods[0]),
+                            'initial_value': self.__get_achievement(indicators[n], periods[0]),
                             'indicator': indicators[n],
-                            'indicator_values': self.__get_indicator_values(indicators[n], periods)
+                            'indicator_values':
+                                self.__get_achieved_values(indicators[n], periods)
+                                if self.type.name == 'Achievement Report'
+                                else self.__get_indicator_values(indicators[n], periods)
                         } for n in range(len(indicators))]
                 })
 
         return objective_data
+
+    def __get_achieved_values(self, indicator: Indicator, periods: list[Period]):
+        return [{
+            'indicator_value': self.__get_indicator_value(p, indicator),
+            'achieved_percentage': round(int(self.__get_achievement(indicator, p)) / int(self.__get_indicator_value(p, indicator)) * 100, 2) if int(self.__get_indicator_value(p, indicator)) > 0 else 0
+        } for p in periods]
 
     def __get_indicator_values(self, indicator: Indicator, periods: list[Period]):
         return [self.__get_indicator_value(p, indicator) for p in periods]
@@ -235,7 +271,7 @@ class Report(models.Model):
             return 0
 
     @staticmethod
-    def __get_baseline(indicator: Indicator, initial_period: Period):
+    def __get_achievement(indicator: Indicator, initial_period: Period):
         try:
             return Achievement.objects.get(indicator_value__indicator=indicator, indicator_value__period=initial_period).target_value
         except Achievement.DoesNotExist:
