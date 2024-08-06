@@ -274,8 +274,12 @@ class Report(models.Model):
     def __get_achievement(indicator: Indicator, initial_period: Period):
         try:
             return Achievement.objects.get(indicator_value__indicator=indicator, indicator_value__period=initial_period).target_value
-        except Exception:
+        except Achievement.DoesNotExist:
             return 0
+        except Achievement.MultipleObjectsReturned:
+            return Achievement.objects.filter(
+                indicator_value__indicator=indicator,
+                indicator_value__period=initial_period).order_by('created_at').first().target_value
 
     def __obtain_periods_list(self):
         return [Period.objects.get(id=n) for n in range(self.indicator_period_start.id, self.indicator_period_end.id)]
