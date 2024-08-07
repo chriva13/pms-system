@@ -26,6 +26,7 @@ class HomePageView(LoginRequiredMixin, TemplateView):
         context['indicators'] = Indicator.objects.all().count()  # Get all objectives
         context['targets'] = Target.objects.all().count()  # Get all objectives
         context['achievements'] = Achievement.objects.all().count()  # Get all objectives
+        context['reports'] = Report.objects.all().count()  # Get all objectives
         return context
 
 
